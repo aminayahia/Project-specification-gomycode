@@ -1,93 +1,98 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Liste from './componets/liste';
-import Add from './componets/add';
-import { useState } from 'react';
-
-
+import Link from '@material-ui/core/Link';
+import NavBar from './componets/navBar';
+import { Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Educations from './pages/Educations';
+import Skills from './pages/Skills';
+import Testimony from './pages/Testimony';
+import ProjectDescription from './componets/ProjectDescription'
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
+  appBar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
+  toolbar: {
+    flexWrap: 'wrap',
+  },
+  toolbarTitle: {
+    flexGrow: 1,
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+  cardHeader: {
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
   },
-  paper: {
-    margin: theme.spacing(8, 4),
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
   },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+  cardContent: {
+    flexGrow: 1,
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6),
   },
 }));
-const Filter = (props) => {
-  return (
-    <div>
-      <div className="searchMovie">
-        <input
-          onChange={props.handleSearch}
-          type="text"
-          placeholder="Recherche"
-        />
-      </div>
-      
-    </div>
-  );
-};
-function App() {
-  const initialState =  {
-    description: ""
-}
-  const [task,setTask] = useState(initialState)
-  const [searching, setSearching] = useState("");
+
+
+export default function App() {
   const classes = useStyles();
 
   return (
-    <div className="App">
-       <Grid container component="main" className={classes.root}>
+    <React.Fragment>
       <CssBaseline />
+       <NavBar />
+      <main>
+  
+   
+      <Switch>
+        
+      <Route exact path="/" component={Home}/>
+      <Route exact path="/skills" component={Skills}/>
       
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-      <Add setTask={setTask} description={task.description} />
-      </Grid>
-      <Grid item xs={false} sm={4} md={7} className={classes.image} >
-      <Filter
-        handleSearch={(e) => setSearching(e.target.value)}
-      />
-        <Liste description={task.description} filter={searching.toLowerCase()}
-        />
-      </Grid>
-    </Grid>
-    </div>
+      <Route path="/educations" component={Educations}/>
+      <Route path="/projects" component={Projects}/>
+      <Route path="/project/:id" component={ProjectDescription} />
+      <Route path="/testimony" component={Testimony}/>
+      </Switch>
+      </main>
+    </React.Fragment>
   );
 }
-
-export default App;

@@ -13,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -49,9 +50,10 @@ const Comment = (props) => {
 
     return (
       <>
-         <Card className={classes.root} variant="outlined">
+     
+         <Card style={{float: "left", textAlign:'center'}} className={classes.root} variant="outlined" spacing={2}>
       <CardContent>
-        
+        <img style={{width:"100px"}} src="https://www.pngarts.com/files/11/Avatar-PNG-Picture.png" alt="img" />
         <Typography variant="body2" component="p">
         {props.description}
          
